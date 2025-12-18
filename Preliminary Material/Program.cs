@@ -113,6 +113,12 @@ namespace FoodCS
 
         public bool FindOutIfHouseholdEatsOut(int householdNo, ref int x, ref int y)
         {
+
+            if ( householdNo < 0 || householdNo >= households.Count)
+            {
+                return false;
+            } //fixes crash if index is out of range
+
             double eatOutRNo = rnd.NextDouble();
             x = households[householdNo].GetX();
             y = households[householdNo].GetY();
@@ -296,6 +302,8 @@ namespace FoodCS
         public void AlterReputation(double change)
         {
             reputationScore += change;
+            if (reputationScore < 0) reputationScore = 0;
+            if (reputationScore > 100) reputationScore = 100;
         }
 
         public void NewDay()
@@ -457,7 +465,7 @@ namespace FoodCS
             baseCostForDelivery = 100;
             string choice;
             Console.Write("Enter L for a large settlement, anything else for a normal size settlement: ");
-            choice = Console.ReadLine();
+            choice = Console.ReadLine()!;
             if (choice == "L")
             {
                 int extraX, extraY, extraHouseholds;
@@ -474,7 +482,7 @@ namespace FoodCS
                 simulationSettlement = new Settlement();
             }
             Console.Write("Enter D for default companies, anything else to add your own start companies: ");
-            choice = Console.ReadLine();
+            choice = Console.ReadLine()!;
             if (choice == "D")
             {
                 noOfCompanies = 3;
@@ -688,13 +696,13 @@ namespace FoodCS
             int balance, x = 0, y = 0;
             string companyName, typeOfCompany = "9";
             Console.Write("Enter a name for the company: ");
-            companyName = Console.ReadLine();
+            companyName = Console.ReadLine()!;
             Console.Write("Enter the starting balance for the company: ");
             balance = Convert.ToInt32(Console.ReadLine());
             while (typeOfCompany != "1" && typeOfCompany != "2" && typeOfCompany != "3")
             {
                 Console.Write("Enter 1 for a fast food company, 2 for a family company or 3 for a named chef company: ");
-                typeOfCompany = Console.ReadLine();
+                typeOfCompany = Console.ReadLine()!;
             }
             if (typeOfCompany == "1")
             {
@@ -738,7 +746,7 @@ namespace FoodCS
             Console.WriteLine("2. Close outlet");
             Console.WriteLine("3. Expand outlet");
             Console.Write("\nEnter your choice: ");
-            choice = Console.ReadLine();
+            choice = Console.ReadLine()!;
             if (choice == "2" || choice == "3")
             {
                 Console.Write("Enter ID of outlet: ");
@@ -801,7 +809,7 @@ namespace FoodCS
             while (choice != "Q")
             {
                 DisplayMenu();
-                choice = Console.ReadLine();
+                choice = Console.ReadLine()!;
                 switch (choice)
                 {
                     case "1":
@@ -816,8 +824,13 @@ namespace FoodCS
                         while (index == -1)
                         {
                             Console.Write("Enter company name: ");
-                            companyName = Console.ReadLine();
-                            index = GetIndexOfCompany(companyName);
+                            companyName = Console.ReadLine()!;
+                            index = GetIndexOfCompany(companyName!);
+
+                            if (index == -1)
+                            {
+                                Console.WriteLine("Company not found. Please try again.");
+                            } //prevents infinite loop if company not found
                         }
                         ModifyCompany(index);
                         break;
