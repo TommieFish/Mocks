@@ -15,43 +15,43 @@ Initializes a new settlement with default size (`1000 x 1000`) and a starting nu
 
 ---
 
-## Function: `GetNumberOfHouseholds()`
+## [Function: `GetNumberOfHouseholds()`](../Program.cs#L65)
 Returns the current number of households in the settlement.
 
 ---
 
-## Function: `GetXSize()`
+## [Function: `GetXSize()`](../Program.cs#L70)
 Returns the X-dimension (width) of the settlement.
 
 ---
 
-## Function: `GetYSize()`
+## [Function: `GetYSize()`](../Program.cs#L75)
 Returns the Y-dimension (height) of the settlement.
 
 ---
 
-## Function: `GetRandomLocation(ref int x, ref int y)`
+## [Function: `GetRandomLocation(ref int x, ref int y)`](../Program.cs#L80)
 Generates a random location within the settlement's boundaries.  
 - `x` and `y` are updated via reference to hold the random coordinates.
 
 ---
 
-## Function: `CreateHouseholds()`
+## [Function: `CreateHouseholds()`](../Program.cs#L86)
 Creates the initial number of households defined by `startNoOfHouseholds`. Calls `AddHousehold()` repeatedly to populate the settlement.
 
 ---
 
-## Function: `AddHousehold()`
+## [Function: `AddHousehold()`](../Program.cs#L94)
 Adds a single new household at a random location within the settlement. Uses `GetRandomLocation()` to determine coordinates.
 
 ---
 
-## Function: `DisplayHouseholds()`
+## [Function: `DisplayHouseholds()`](../Program.cs#L102)
 Prints details of all households to the console, including their ID, coordinates, and probability of eating out. Useful for debugging or visual inspection.
 
 ---
 
-## Function: `FindOutIfHouseholdEatsOut(int householdNo, ref int x, ref int y)`
+## [Function: `FindOutIfHouseholdEatsOut(int householdNo, ref int x, ref int y)`](../Program.cs#L114)
 Determines if a specific household eats out on a given day.  
 - `householdNo` – the index of the household in the `households` list.  
 - `x` and `y` – updated via reference to hold the household's coordinates.  
