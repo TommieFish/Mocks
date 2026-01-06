@@ -36,3 +36,43 @@ public bool FindOutIfHouseholdEatsOut(int householdNo, ref int x, ref int y)
 
 
 
+//----------------------------------------------------------------------------------------------
+//When adding a new outlet, check that an outlet is not already at those co-ordinates
+
+// Checks whether any existing outlet already uses the given coordinates
+private bool CoordinatesInUse(int x, int y)
+{
+    foreach (var c in companies)
+    {
+        foreach (int outletIndex in c.GetListOfOutlets())
+        {
+            Outlet o = c.outlets[outletIndex];
+            if (o.GetX() == x && o.GetY() == y)
+            {
+                return true; // Found an outlet at these coordinates
+            }
+        }
+    }
+    return false; // No outlet uses these coordinates
+}
+
+//Line 794 - 801
+// Check coordinates are inside the settlement
+if (x >= 0 && x < simulationSettlement.GetXSize() &&
+    y >= 0 && y < simulationSettlement.GetYSize())
+{
+    // NEW: check if coordinates are already used
+    if (CoordinatesInUse(x, y))
+    {
+        Console.WriteLine("Those coordinates are already used by an existing outlet.");
+    }
+    else
+    {
+        companies[index].OpenOutlet(x, y);
+        Console.WriteLine("Outlet successfully opened.");
+    }
+}
+else
+{
+    Console.WriteLine("Invalid coordinates.");
+}
